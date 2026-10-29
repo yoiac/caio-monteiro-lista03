@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+        }
+        input, select, button {
+            padding: 8px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid gray;
+            padding: 8px;
+            text-align: left;
+        }
+        #mensagem {
+            color: red;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cadastro de Alunos</h2>
+    <form id="formAluno">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" min="1" max="120" required>
+
+        <label for="curso">Curso:</label>
+        <select id="curso" name="curso" required>
+            <option value="">Selecione um curso</option>
+            <option value="Computação">Computação</option>
+            <option value="Engenharia">Engenharia</option>
+            <option value="Design">Design</option>
+        </select>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h3>Objeto JSON</h3>
+    <pre id="json"></pre>
+
+    <h3>Alunos cadastrados</h3>
+    <table id="tabelaAlunos">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Idade</th>
+                <th>Curso</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById('formAluno');
+        const preJson = document.getElementById('json');
+        const tabelaBody = document.querySelector('#tabelaAlunos tbody');
+
+        form.addEventListener('submit', function(evento) {
+            evento.preventDefault();
+
+            const dados = new FormData(form);
+            const objeto = {};
+
+            for (let [chave, valor] of dados) {
+                objeto[chave] = valor;
+            }
+
+            preJson.textContent = JSON.stringify(objeto, null, 2);
+
+            const novaLinha = document.createElement('tr');
+            novaLinha.innerHTML = `
+                <td>${objeto.nome}</td>
+                <td>${objeto.email}</td>
+                <td>${objeto.idade}</td>
+                <td>${objeto.curso}</td>
+            `;
+            tabelaBody.appendChild(novaLinha);
+            
+            form.reset();
+        });
+    </script>
+</body>
+</html>
