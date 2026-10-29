@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Questão 01 - Cards Usuários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .card {
+            border: 1px solid gray;
+            padding: 15px;
+            width: 250px;
+            cursor: pointer;
+        }
+        .card.selecionado {
+            border: 2px solid blue;
+            background-color: lightblue;
+        }
+        #total {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Usuários</h2>
+    <div id="cards"></div>
+    <div id="total"></div>
+
+    <script>
+        const usuarios = [
+            { id: 1, name: "Leanne Graham", email: "Sincere@april.biz", address: { city: "Gwenborough" }, company: { name: "Romaguera-Crona" } },
+            { id: 2, name: "Ervin Howell", email: "Shanna@melissa.tv", address: { city: "Wisokyburgh" }, company: { name: "Deckow-Crist" } },
+            { id: 3, name: "Clementine Bauch", email: "Nathan@yesenia.net", address: { city: "McKenziehaven" }, company: { name: "Romaguera-Jacobson" } },
+            { id: 4, name: "Patricia Lebsack", email: "Julianne.OConner@kory.org", address: { city: "South Elvis" }, company: { name: "Robel-Corkery" } }
+        ];
+
+        const containerCards = document.getElementById('cards');
+        const containerTotal = document.getElementById('total');
+
+        usuarios.forEach(usuario => {
+            const divCard = document.createElement('div');
+            divCard.classList.add('card');
+            
+            divCard.innerHTML = `
+                <h3>${usuario.name}</h3>
+                <p><strong>E-mail:</strong> ${usuario.email}</p>
+                <p><strong>Cidade:</strong> ${usuario.address.city}</p>
+                <p><strong>Empresa:</strong> ${usuario.company.name}</p>
+            `;
+            
+            containerCards.appendChild(divCard);
+        });
+
+        containerTotal.innerText = `Total de usuários: ${usuarios.length}`;
+    </script>
+</body>
+</html>
