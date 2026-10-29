@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 8px;
+        }
+        #resultado {
+            margin-top: 20px;
+        }
+        .erro {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Buscar Post</h2>
+    <input type="number" id="inputId" placeholder="Digite um ID numérico">
+    <button id="btnBuscar">Buscar</button>
+    <div id="resultado"></div>
+
+    <script>
+        const posts = [
+            { userId: 1, id: 1, title: "Primeiro post", body: "Aprendendo a manipular o DOM." },
+            { userId: 1, id: 2, title: "Segundo post", body: "Arrays de objetos são parecidos com o JSON de uma API." },
+            { userId: 2, id: 3, title: "Terceiro post", body: "Em breve vamos buscar estes dados no servidor." },
+            { userId: 2, id: 4, title: "Quarto post", body: "O método find devolve o primeiro item encontrado." },
+            { userId: 3, id: 5, title: "Quinto post", body: "Se nada for encontrado, find devolve undefined." }
+        ];
+
+        document.getElementById('btnBuscar').addEventListener('click', () => {
+            const inputValor = document.getElementById('inputId').value;
+            const divResultado = document.getElementById('resultado');
+
+            if (inputValor === "") {
+                divResultado.innerHTML = `<span class="erro">Digite um ID.</span>`;
+                return;
+            }
+
+            const idBuscado = Number(inputValor);
+            const postEncontrado = posts.find(post => post.id === idBuscado);
+
+            if (postEncontrado) {
+                divResultado.innerHTML = `
+                    <h2>${postEncontrado.title}</h2>
+                    <p>${postEncontrado.body}</p>
+                `;
+            } else {
+                divResultado.innerHTML = `<span class="erro">Post não encontrado (ID ${inputValor}). Os IDs válidos vão de 1 a 5.</span>`;
+            }
+        });
+    </script>
+</body>
+</html>
